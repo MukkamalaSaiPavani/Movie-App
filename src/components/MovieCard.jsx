@@ -1,6 +1,6 @@
 const MovieCard = ({ movie, isFavorite, onAdd, onRemove, onClick }) => {
   const handleFavClick = (e) => {
-    e.stopPropagation(); // Prevent triggering card click
+    e.stopPropagation(); 
     if (isFavorite) {
       onRemove(movie.imdbID);
     } else {
