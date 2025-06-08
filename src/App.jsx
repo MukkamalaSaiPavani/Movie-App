@@ -173,3 +173,67 @@ function App() {
 }
 
 export default App;
+function MovieDetailsPopup({ movie, onClose, loading }) {
+  if (loading) {
+    return (
+      <div style={overlayStyle}>
+        <div style={popupStyle}>Loading details...</div>
+      </div>
+    );
+  }
+
+  if (!movie) return null;
+
+  return (
+    <div style={overlayStyle} onClick={onClose}>
+      <div style={popupStyle} onClick={(e) => e.stopPropagation()}>
+        <button style={closeBtnStyle} onClick={onClose}>X</button>
+        <h2>{movie.Title} ({movie.Year})</h2>
+        <img
+          src={movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/200x300'}
+          alt={movie.Title}
+          style={{ width: '200px' }}
+        />
+        <p><strong>Genre:</strong> {movie.Genre}</p>
+        <p><strong>Director:</strong> {movie.Director}</p>
+        <p><strong>Actors:</strong> {movie.Actors}</p>
+        <p><strong>Plot:</strong> {movie.Plot}</p>
+        <p><strong>IMDB Rating:</strong> {movie.imdbRating}</p>
+      </div>
+    </div>
+  );
+}
+
+const overlayStyle = {
+  position: 'fixed',
+  top: 0, left: 0, right: 0, bottom: 0,
+  backgroundColor: 'rgba(0,0,0,0.7)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: 2000,
+};
+
+const popupStyle = {
+  backgroundColor: '#111',
+  padding: '20px',
+  borderRadius: '10px',
+  maxWidth: '400px',
+  color: 'white',
+  position: 'relative',
+  textAlign: 'left',
+  maxHeight: '80vh',
+  overflowY: 'auto',
+};
+
+const closeBtnStyle = {
+  position: 'absolute',
+  top: '10px',
+  right: '10px',
+  cursor: 'pointer',
+  background: 'transparent',
+  border: 'none',
+  color: 'white',
+  fontSize: '18px',
+  fontWeight: 'bold',
+};
